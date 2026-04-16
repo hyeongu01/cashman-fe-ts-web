@@ -1,0 +1,131 @@
+.container {
+    min-height: 100vh;
+    background-color: #f5f5f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card {
+    background-color: white;
+    width: 420px;
+    border-radius: 24px;
+    padding: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+    border: 1px solid #f0f0f2;
+}
+
+.heading {
+    color: #1A1A1A;
+    font-family: "DM Sans";
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    text-align: center;
+}
+
+.subheading {
+    color: #787880;
+    font-family: "DM Sans";
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    text-align: center;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.dividerText {
+    color: #787880;
+    font-family: "DM Sans";
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.line {
+    height: 1px;
+    background-color: #E5E5EA;
+    flex: 1;
+}
+
+.socialList {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    gap: 10px;
+    width: 100%;
+}
+
+.socialLogin {
+    display: flex;
+    /* background-color: #03A94D; */
+    width: 100%;
+    border-radius: 12px;
+    height: 40px;
+}
+
+.naverLogin {
+    background-color: #03A94D;
+    padding: 0px 0px 0px 20px;
+    align-items: center;
+}
+
+.socialProps {
+    display: flex;
+    flex-direction: row;
+    height: 18px;
+    align-items: center;
+    width: 100%;
+}
+
+.kakaoLogin {
+    background-color: #FEE500;
+    padding: 0px 0px 0px 20px;
+    align-items: center;
+}
+
+.googleLogin {
+    background-color: #F2F2F2;
+    padding: 0px 0px 0px 20px;
+    align-items: center;
+}
+
+
+.spacer {
+    flex: 1;
+}
+
+.naverLoginText {
+    color: #FFFFFF;
+    text-align: center;
+    font-size: 18px;
+}
+
+.kakaoLoginText {
+    color: #000000;
+    font-size: 18px;
+    text-align: center;
+}
+
+.googleLoginText {
+    font-family: "Roboto";
+    font-weight: 500;
+    color: #1F1F1F;
+    font-size: 14px;
+    line-height: 20px;
+    text-align: center;
+}
+
+
