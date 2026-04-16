@@ -8,7 +8,8 @@
 
 .card {
     background-color: white;
-    width: 420px;
+    width: 100%;
+    max-width: 420px;
     border-radius: 24px;
     padding: 48px;
     display: flex;
@@ -70,16 +71,34 @@
 
 .socialLogin {
     display: flex;
-    /* background-color: #03A94D; */
     width: 100%;
     border-radius: 12px;
     height: 40px;
+    align-items: center;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+.socialLogin:hover {
+    opacity: 0.85;
 }
 
 .naverLogin {
     background-color: #03A94D;
     padding: 0px 0px 0px 20px;
-    align-items: center;
+}
+.kakaoLogin {
+    background-color: #FEE500;
+    padding: 0px 0px 0px 20px;
+}
+.googleLogin {
+    background-color: #F2F2F2;
+    padding: 0px 0px 0px 12px;
+}
+
+.googleLogin:hover {
+    background-color: #E5E5EA;
 }
 
 .socialProps {
@@ -90,19 +109,6 @@
     width: 100%;
 }
 
-.kakaoLogin {
-    background-color: #FEE500;
-    padding: 0px 0px 0px 20px;
-    align-items: center;
-}
-
-.googleLogin {
-    background-color: #F2F2F2;
-    padding: 0px 0px 0px 20px;
-    align-items: center;
-}
-
-
 .spacer {
     flex: 1;
 }
@@ -110,12 +116,15 @@
 .naverLoginText {
     color: #FFFFFF;
     text-align: center;
-    font-size: 18px;
+    font-size: 14px;
+    line-height: 20px;
 }
 
 .kakaoLoginText {
-    color: #000000;
-    font-size: 18px;
+    /* color: #000000; */
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.85);
+    line-height: 20px;
     text-align: center;
 }
 
