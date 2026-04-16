@@ -1,8 +1,18 @@
+'use client';
+
 import styles from './page.module.css';
 import AppLogo from "@/components/AppLogo";
 import Image from 'next/image';
+import { getLoginUrl } from '@/services/auth';
 
 export default function LoginPage() {
+
+  const handleLogin = async (provider: 'naver' | 'kakao' | 'google') => {
+    const res = await getLoginUrl(provider);
+    const url = res.data.url || '';
+    window.location.href = url;
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.card}>
@@ -25,7 +35,7 @@ export default function LoginPage() {
 
         <div className={styles.socialList}>
           {/* 4-1. 네이버 로그인 */}
-          <button className={`${styles.socialLogin} ${styles.naverLogin}`}>
+          <button className={`${styles.socialLogin} ${styles.naverLogin}`} onClick={() => handleLogin('naver')}>
             <div className={styles.socialProps}>
               <Image src={'/images/naverLogo.png'} alt="naver logo" width={18} height={18} />
               <div className={styles.spacer} />
