@@ -1,0 +1,37 @@
+.card {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 152px;
+    height: 36px;
+}
+
+.profileIcon {
+    border-radius: 50%;
+    background-color: black;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 20px;
+}
+
+.name {
+    color: #1A1A1A;
+    font-family: "DM Sans";
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.email {
+    color: #787880;
+    font-family: "DM Sans";
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}

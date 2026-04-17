@@ -4,7 +4,7 @@ import CallbackClient from "./CallbackClient";
 
 export default function CallbackPage() {
     return (
-        <Suspense>
+        <Suspense fallback={<div>로딩중 ..</div>}>
             <CallbackClient />
         </Suspense>
     )
