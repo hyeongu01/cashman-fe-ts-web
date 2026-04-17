@@ -3,7 +3,7 @@ import { api } from "@/lib/api";
 export const getLoginUrl = (provider: string) => {
   switch (provider) {
     case 'naver':
-      return api('/auth/naver/login');
+      return api(`/auth/naver/login?redirectUrl=${window.location.origin}/callback`);
     default:
       return null;
   }
