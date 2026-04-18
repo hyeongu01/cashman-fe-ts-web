@@ -2,8 +2,10 @@ import { api } from '../lib/api';
 
 export type User = {
     id: string;
-    email: string;
     name: string;
+    email: string;
+    timezone: string;
+    birthDate: string;
 }
 
-export const getMe = (): Promise<User> => api('/users/me');
+export const getMe = (): Promise<User> => api<User>('/users/me');

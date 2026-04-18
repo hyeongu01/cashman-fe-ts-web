@@ -4,18 +4,34 @@ import styles from './page.module.css';
 import AppLogo from "@/components/AppLogo";
 import Image from 'next/image';
 import { getLoginUrl } from '@/services/auth';
+import { useEffect, useState } from 'react';
 
 export default function LoginPage() {
+  const [error, setError] = useState<string | null>(null);
 
   const handleLogin = async (provider: 'naver' | 'kakao' | 'google') => {
-    const res = await getLoginUrl(provider);
-    const url = res.data.url || '';
-    window.location.href = url;
+    try {
+      const res = await getLoginUrl(provider);
+      if (!res) throw new Error('로그인 url을 가져올 수 없습니다.');
+      const url = res.url;
+      window.location.href = url;
+    } catch(e) {
+      setError(e instanceof Error ? e.message : '로그인에 실패했습니다.');
+    }
   }
+
+  {useEffect(() => {
+    if(!error) return;
+    const timer = setTimeout(() => setError(null), 5000);
+    return () => clearTimeout(timer);
+  }), [error]}
 
   return (
     <div className={styles.container}>
       <div className={styles.card}>
+        {error && (
+          <p role='alert' className={styles.errorMessage}>{error}</p>
+        )}
         {/* 1. 로고 */}
         <AppLogo />
 

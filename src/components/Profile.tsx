@@ -9,10 +9,10 @@ interface ProfileProps {
 function Profile({user}: ProfileProps) {
     return (
         <div className={styles.card}>
-            <div className={styles.profileIcon}>{user.id}</div>
+            <div className={styles.profileIcon}>{user.name.split('')[0]}</div>
             <div>
                 <p className={styles.name}>{user.name}</p>
-                <p className={styles.email}>cdy5212@gmail.com</p>
+                <p className={styles.email}>{user.email}</p>
             </div>
         </div>
     )

@@ -1,6 +1,13 @@
 const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL;
 
-export async function api(path: string, options?: RequestInit) {
+type ApiResponse<T> = {
+  data: T;
+  message: string;
+  statusCode: number;
+  timestamp: string;
+}
+
+export async function api<T>(path: string, options?: RequestInit) {
   const accessToken = localStorage.getItem('accessToken');
   const tokenType = localStorage.getItem('tokenType') || 'bearer';
 
@@ -15,5 +22,6 @@ export async function api(path: string, options?: RequestInit) {
 
   if (!res.ok) throw new Error(`Api error: ${res.body}`);
 
-  return res.json();
+  const body: ApiResponse<T> = await res.json();
+  return body.data;
 }
