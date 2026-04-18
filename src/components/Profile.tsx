@@ -1,12 +1,11 @@
 import styles from './Profile.module.css';
-import {getMe, type User} from '../services/user';
-import { useEffect, useState } from 'react';
+import { type User } from '../services/user';
 
 interface ProfileProps {
     user: User;
 }
 
-function Profile({user}: ProfileProps) {
+function Profile({ user }: ProfileProps) {
     return (
         <div className={styles.card}>
             <div className={styles.profileIcon}>{user.name.split('')[0]}</div>
