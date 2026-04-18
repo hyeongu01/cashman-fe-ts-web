@@ -38,7 +38,7 @@ export default function LoginPage() {
   }, [error]);
 
   if (!isInitialized) return <p>로딩중 ...</p>;
-  if (!accessToken) return null;
+  if (accessToken) return <p>이동중 ...</p>;
 
   return (
     <div className={styles.container}>
