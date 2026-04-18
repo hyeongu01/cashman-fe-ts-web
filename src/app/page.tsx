@@ -10,7 +10,6 @@ export default function Home() {
   const { getMe } = useUserService();
 
   useEffect(() => {
-    console.log('test!!')
     getMe()
       .then(setUser)
       .catch(() => {

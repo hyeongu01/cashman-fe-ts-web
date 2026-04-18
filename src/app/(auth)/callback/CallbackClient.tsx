@@ -7,14 +7,12 @@ import { flushSync } from "react-dom";
 export default function CallbackClient() {
     const router = useRouter();
     const params = useSearchParams();
-    const { setAccessToken, setRefreshToken, setTokenType } = useAuth();
+    const { setAccessToken } = useAuth();
 
     useEffect(() => {
         const accessToken = params.get('accessToken');
-        const refreshToken = params.get('refreshToken');
-        const tokenType = params.get('tokenType');
 
-        if (!accessToken || !refreshToken || !tokenType) {
+        if (!accessToken) {
             router.replace('/login');
             return
         }
@@ -22,13 +20,11 @@ export default function CallbackClient() {
         queueMicrotask(() => {
             flushSync(() => {
                 setAccessToken(accessToken);
-                setRefreshToken(refreshToken);
-                setTokenType(tokenType);
             })
         })
 
         router.replace('/');
-    }, [params, router, setAccessToken, setRefreshToken, setTokenType]);
+    }, [params, router, setAccessToken]);
 
     return <p>로그인 처리중</p>
 }

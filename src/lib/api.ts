@@ -2,7 +2,9 @@
 
 import { useAuth } from "@/contexts/AuthContext";
 import { useCallback } from "react";
+
 const BASE_URL = '/api';
+const TOKEN_TYPE = 'bearer';
 
 type ApiResponse<T> = {
   data: T;
@@ -12,14 +14,14 @@ type ApiResponse<T> = {
 }
 
 export function useApi() {
-  const { accessToken, tokenType } = useAuth();
+  const { accessToken } = useAuth();
 
   return useCallback(async <T>(path: string, options?: RequestInit) => {
     const res = await fetch(`${BASE_URL}${path}`, {
       ...options,
       headers: {
         'Content-Type': 'application/json',
-        ...(accessToken && { Authorization: `${tokenType} ${accessToken}` }),
+        ...(accessToken && { Authorization: `${TOKEN_TYPE} ${accessToken}` }),
         ...options?.headers,
       }
     });
@@ -28,5 +30,5 @@ export function useApi() {
 
     const body: ApiResponse<T> = await res.json();
     return body.data;
-  }, [accessToken, tokenType]);
+  }, [accessToken]);
 }

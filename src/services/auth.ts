@@ -7,7 +7,10 @@ export function useAuthService() {
   return useCallback(async (provider: string) => {
     switch (provider) {
       case 'naver':
-        return api<{ url: string }>(`/auth/naver/login?redirectUrl=${window.location.origin}/callback`);
+        const params = new URLSearchParams({
+          redirectUrl: `${window.location.origin}/callback`,
+        })
+        return api<{ url: string }>(`/auth/naver/login?${params}`);
       default:
         return null;
     }
