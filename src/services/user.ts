@@ -1,4 +1,5 @@
-import { api } from '../lib/api';
+import { useCallback } from 'react';
+import { useApi } from '../lib/api';
 
 export type User = {
     id: string;
@@ -8,4 +9,14 @@ export type User = {
     birthDate: string;
 }
 
-export const getMe = (): Promise<User> => api<User>('/users/me');
+// export const getMe = (): Promise<User> => api<User>('/users/me');
+
+export function useUserService() {
+    const api = useApi();
+
+    const getMe = useCallback(async () => {
+        return await api<User>('/users/me');
+    }, [api]);
+
+    return { getMe };
+}

@@ -3,28 +3,29 @@
 import styles from './page.module.css';
 import AppLogo from "@/components/AppLogo";
 import Image from 'next/image';
-import { getLoginUrl } from '@/services/auth';
+import { useAuthService } from '@/services/auth';
 import { useEffect, useState } from 'react';
 
 export default function LoginPage() {
   const [error, setError] = useState<string | null>(null);
+  const authService = useAuthService();
 
   const handleLogin = async (provider: 'naver' | 'kakao' | 'google') => {
     try {
-      const res = await getLoginUrl(provider);
+      const res = await authService(provider);
       if (!res) throw new Error('로그인 url을 가져올 수 없습니다.');
       const url = res.url;
       window.location.href = url;
-    } catch(e) {
+    } catch (e) {
       setError(e instanceof Error ? e.message : '로그인에 실패했습니다.');
     }
   }
 
-  {useEffect(() => {
-    if(!error) return;
-    const timer = setTimeout(() => setError(null), 5000);
+  useEffect(() => {
+    if (!error) return;
+    const timer = setTimeout(() => setError(null), 3000);
     return () => clearTimeout(timer);
-  }), [error]}
+  }, [error]);
 
   return (
     <div className={styles.container}>
@@ -44,7 +45,7 @@ export default function LoginPage() {
         {/* 3. 구분자 */}
         <div className={styles.divider}>
           <div className={styles.line} />
-            <span className={styles.dividerText}>소셜 계정으로 시작하기</span>
+          <span className={styles.dividerText}>소셜 계정으로 시작하기</span>
           <div className={styles.line} />
         </div>
 
@@ -63,7 +64,7 @@ export default function LoginPage() {
           {/* 4-2. 카카오 로그인*/}
           <button className={`${styles.socialLogin} ${styles.kakaoLogin}`} onClick={() => handleLogin('kakao')}>
             <div className={styles.socialProps}>
-              <Image src={'/images/kakaoLogo.png'} alt="kakao logo" width={18} height={18}/>
+              <Image src={'/images/kakaoLogo.png'} alt="kakao logo" width={18} height={18} />
               <div className={styles.spacer} />
               <p className={styles.kakaoLoginText}>카카오 로그인</p>
               <div className={styles.spacer} />
@@ -73,7 +74,7 @@ export default function LoginPage() {
           {/* 4-3. 구글 로그인*/}
           <button className={`${styles.socialLogin} ${styles.googleLogin}`} onClick={() => handleLogin('google')}>
             <div className={styles.socialProps}>
-              <Image src={'/images/googleLogo.svg'} alt={'google logo'} width={20} height={20}/>
+              <Image src={'/images/googleLogo.svg'} alt={'google logo'} width={20} height={20} />
               <div className={styles.spacer} />
               <p className={styles.googleLoginText}>구글 로그인</p>
               <div className={styles.spacer} />

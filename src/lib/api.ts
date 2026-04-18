@@ -1,3 +1,7 @@
+'use client';
+
+import { useAuth } from "@/contexts/AuthContext";
+import { useCallback } from "react";
 const BASE_URL = '/api';
 
 type ApiResponse<T> = {
@@ -7,21 +11,22 @@ type ApiResponse<T> = {
   timestamp: string;
 }
 
-export async function api<T>(path: string, options?: RequestInit) {
-  const accessToken = localStorage.getItem('accessToken');
-  const tokenType = localStorage.getItem('tokenType') || 'bearer';
+export function useApi() {
+  const { accessToken, tokenType } = useAuth();
 
-  const res = await fetch(`${BASE_URL}${path}`, {
-    ...options,
-    headers: {
-      'Content-Type': 'application/json',
-      ...(accessToken && { Authorization: `${tokenType} ${accessToken}`}),
-      ...options?.headers,
-    }
-  })
+  return useCallback(async <T>(path: string, options?: RequestInit) => {
+    const res = await fetch(`${BASE_URL}${path}`, {
+      ...options,
+      headers: {
+        'Content-Type': 'application/json',
+        ...(accessToken && { Authorization: `${tokenType} ${accessToken}` }),
+        ...options?.headers,
+      }
+    });
 
-  if (!res.ok) throw new Error(`Api error: ${res.body}`);
+    if (!res.ok) throw new Error(`Api error: ${res.body}`);
 
-  const body: ApiResponse<T> = await res.json();
-  return body.data;
+    const body: ApiResponse<T> = await res.json();
+    return body.data;
+  }, [accessToken, tokenType]);
 }

@@ -1,11 +1,15 @@
-import { api } from "@/lib/api";
+import { useApi } from "@/lib/api";
+import { useCallback } from "react";
 
-export const getLoginUrl = (provider: string) => {
-  console.log(`${window.location.origin}/callback`);
-  switch (provider) {
-    case 'naver':
-      return api<{url: string}>(`/auth/naver/login?redirectUrl=${window.location.origin}/callback`);
-    default:
-      return null;
-  }
-};
+export function useAuthService() {
+  const api = useApi();
+
+  return useCallback(async (provider: string) => {
+    switch (provider) {
+      case 'naver':
+        return api<{ url: string }>(`/auth/naver/login?redirectUrl=${window.location.origin}/callback`);
+      default:
+        return null;
+    }
+  }, [api])
+}

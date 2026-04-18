@@ -1,11 +1,13 @@
 'use client';
+import { useAuth } from "@/contexts/AuthContext";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useEffect } from "react";
+import { flushSync } from "react-dom";
 
 export default function CallbackClient() {
     const router = useRouter();
-
     const params = useSearchParams();
+    const { setAccessToken, setRefreshToken, setTokenType } = useAuth();
 
     useEffect(() => {
         const accessToken = params.get('accessToken');
@@ -17,12 +19,16 @@ export default function CallbackClient() {
             return
         }
 
-        localStorage.setItem('accessToken', accessToken);
-        localStorage.setItem('refreshToken', refreshToken);
-        localStorage.setItem('tokenType', tokenType);
+        queueMicrotask(() => {
+            flushSync(() => {
+                setAccessToken(accessToken);
+                setRefreshToken(refreshToken);
+                setTokenType(tokenType);
+            })
+        })
 
         router.replace('/');
-    }, [params, router]);
-    
+    }, [params, router, setAccessToken, setRefreshToken, setTokenType]);
+
     return <p>로그인 처리중</p>
 }
