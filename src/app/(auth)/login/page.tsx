@@ -61,7 +61,7 @@ export default function LoginPage() {
           </button>
 
           {/* 4-2. 카카오 로그인*/}
-          <button className={`${styles.socialLogin} ${styles.kakaoLogin}`}>
+          <button className={`${styles.socialLogin} ${styles.kakaoLogin}`} onClick={() => handleLogin('kakao')}>
             <div className={styles.socialProps}>
               <Image src={'/images/kakaoLogo.png'} alt="kakao logo" width={18} height={18}/>
               <div className={styles.spacer} />
@@ -71,7 +71,7 @@ export default function LoginPage() {
           </button>
 
           {/* 4-3. 구글 로그인*/}
-          <button className={`${styles.socialLogin} ${styles.googleLogin}`}>
+          <button className={`${styles.socialLogin} ${styles.googleLogin}`} onClick={() => handleLogin('google')}>
             <div className={styles.socialProps}>
               <Image src={'/images/googleLogo.svg'} alt={'google logo'} width={20} height={20}/>
               <div className={styles.spacer} />
