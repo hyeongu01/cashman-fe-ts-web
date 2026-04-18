@@ -14,21 +14,34 @@ type ApiResponse<T> = {
 }
 
 export function useApi() {
-  const { accessToken } = useAuth();
+  const { accessToken, refresh } = useAuth();
 
   return useCallback(async <T>(path: string, options?: RequestInit) => {
-    const res = await fetch(`${BASE_URL}${path}`, {
-      ...options,
-      headers: {
-        'Content-Type': 'application/json',
-        ...(accessToken && { Authorization: `${TOKEN_TYPE} ${accessToken}` }),
-        ...options?.headers,
-      }
-    });
+    const doFetch = (token: string | null) =>
+      fetch(`${BASE_URL}${path}`, {
+        ...options,
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(token && { Authorization: `${TOKEN_TYPE} ${token}` }),
+          ...options?.headers,
+        },
+      });
 
-    if (!res.ok) throw new Error(`Api error: ${res.body}`);
+    let res = await doFetch(accessToken);
+
+    if (res.status === 401) {
+      const newToken = await refresh();
+      if (!newToken) throw new Error('서버 인증 실패');
+      res = await doFetch(newToken);
+    }
+
+    if (!res.ok) {
+      const text = await res.text().catch(() => '');
+      throw new Error(`Api error ${res.status}: ${text}`);
+    }
 
     const body: ApiResponse<T> = await res.json();
     return body.data;
-  }, [accessToken]);
+  }, [accessToken, refresh]);
 }

@@ -1,14 +1,17 @@
 'use client';
-
 import styles from './page.module.css';
 import AppLogo from "@/components/AppLogo";
 import Image from 'next/image';
 import { useAuthService } from '@/services/auth';
 import { useEffect, useState } from 'react';
+import { useAuth } from '@/contexts/AuthContext';
+import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
+  const router = useRouter();
   const [error, setError] = useState<string | null>(null);
   const authService = useAuthService();
+  const { accessToken, isInitialized } = useAuth();
 
   const handleLogin = async (provider: 'naver' | 'kakao' | 'google') => {
     try {
@@ -22,10 +25,20 @@ export default function LoginPage() {
   }
 
   useEffect(() => {
+    if (accessToken) {
+      router.replace('/');
+      return;
+    }
+  }, [router, accessToken])
+
+  useEffect(() => {
     if (!error) return;
     const timer = setTimeout(() => setError(null), 3000);
     return () => clearTimeout(timer);
   }, [error]);
+
+  if (!isInitialized) return <p>로딩중 ...</p>;
+  if (!accessToken) return null;
 
   return (
     <div className={styles.container}>
