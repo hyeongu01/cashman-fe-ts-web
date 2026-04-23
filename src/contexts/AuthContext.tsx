@@ -1,13 +1,21 @@
-'use client';
+"use client";
 
-import { createContext, ReactNode, useCallback, useContext, useEffect, useRef, useState } from "react";
+import {
+  createContext,
+  ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 type AuthState = {
   accessToken: string | null;
   setAccessToken: (token: string | null) => void;
   refresh: () => Promise<string | null>;
   isInitialized: boolean;
-}
+};
 
 const AuthContext = createContext<AuthState | null>(null);
 
@@ -23,9 +31,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const refresh = useCallback(async (): Promise<string | null> => {
     try {
-      const res = await fetch('/api/auth/refresh', {
-        method: 'POST',
-        credentials: 'include',
+      const res = await fetch("/api/auth/refresh", {
+        method: "POST",
+        credentials: "include",
       });
       if (!res.ok) return null;
       const body = await res.json();
@@ -45,13 +53,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     refresh().finally(() => {
       if (!cancelled) setIsInitialized(true);
     });
-    return () => { cancelled = true };
+    return () => {
+      cancelled = true;
+    };
   }, [refresh]);
 
   return (
     <AuthContext.Provider
       value={{
-        accessToken, setAccessToken,
+        accessToken,
+        setAccessToken,
         refresh,
         isInitialized,
       }}
@@ -63,6 +74,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
 export function useAuth() {
   const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error('useAuth must be used within AuthProvider');
+  if (!ctx) throw new Error("useAuth must be used within AuthProvider");
   return ctx;
 }

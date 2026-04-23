@@ -1,4 +1,4 @@
-import Image from 'next/image';
+import Image from "next/image";
 
 interface AppLogoProps {
   size?: number;
@@ -6,20 +6,17 @@ interface AppLogoProps {
 
 function AppLogo({ size = 64 }: AppLogoProps) {
   return (
-    <div style={{ position: 'relative', width: size, height: size }}>
+    <div style={{ position: "relative", width: size, height: size }}>
       <Image
-        src='/images/logo.png'
-        alt='logo'
+        src="/images/logo.png"
+        alt="logo"
         fill
         priority
         sizes={`${size}px`}
-        style={{ objectFit: 'contain' }}
-      />;
+        style={{ objectFit: "contain" }}
+      />
     </div>
-  )
-
-
-
+  );
 }
 
 export default AppLogo;
