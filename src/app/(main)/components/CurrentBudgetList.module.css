@@ -11,6 +11,13 @@
 }
 
 /* ── 이번달 예산 내부 ── */
+.panelTitle {
+    color: var(--text-strong);
+    font-family: "DM Sans";
+    font-size: 16px;
+    font-weight: 600;
+}
+
 .budgetTotal {
   display: flex;
   flex-direction: column;
