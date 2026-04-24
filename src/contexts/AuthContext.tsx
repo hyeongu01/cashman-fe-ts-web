@@ -6,15 +6,17 @@ import {
   useCallback,
   useContext,
   useEffect,
-  useRef,
   useState,
 } from "react";
+import { useApi } from "@/lib/api";
+import { type User } from "@/services/user";
 
 type AuthState = {
   accessToken: string | null;
   setAccessToken: (token: string | null) => void;
   refresh: () => Promise<string | null>;
   isInitialized: boolean;
+  user: User | null;
 };
 
 const AuthContext = createContext<AuthState | null>(null);
@@ -22,12 +24,7 @@ const AuthContext = createContext<AuthState | null>(null);
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [isInitialized, setIsInitialized] = useState(false);
-
-  const accessTokenRef = useRef<string | null>(null);
-
-  useEffect(() => {
-    accessTokenRef.current = accessToken;
-  }, [accessToken]);
+  const [user, setUser] = useState<User | null>(null);
 
   const refresh = useCallback(async (): Promise<string | null> => {
     try {
@@ -39,6 +36,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const body = await res.json();
       const token: string = body.data.accessToken;
       setAccessToken(token);
+      const userRes = await fetch("/api/users/me", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+          ...(token && { Authorization: `bearer ${token}` }),
+        },
+      });
+      const userBody = await userRes.json();
+      setUser(userBody.data);
       return token;
     } catch {
       return null;
@@ -65,6 +71,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setAccessToken,
         refresh,
         isInitialized,
+        user,
       }}
     >
       {children}
