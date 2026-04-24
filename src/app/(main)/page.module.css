@@ -1,0 +1,134 @@
+.contentBox {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 28px 32px;
+  align-items: stretch;
+  flex: 1 0 0;
+  align-self: stretch;
+  background: var(--surface);
+  overflow-y: auto;
+}
+
+/* ── 헤더 ── */
+.headerBox {
+  display: flex;
+  align-items: center;
+  align-self: stretch;
+  justify-content: space-between;
+}
+
+.mainTitle {
+  color: var(--text-strong);
+  font-family: "DM Sans";
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.addButton {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 10px;
+  background: var(--primary);
+  color: #ffffff;
+  font-family: "DM Sans";
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.addButton :first-child {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+/* ── 요약 카드 ── */
+.summaryBox {
+  display: flex;
+  gap: 16px;
+  align-self: stretch;
+}
+
+.totalBudgetBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  padding: 20px 24px;
+  flex: 1;
+  border-radius: 16px;
+  border: 1px solid var(--page-bg);
+  background: var(--white);
+}
+
+.categoryCard {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 16px 20px;
+  flex: 1;
+  border-radius: 16px;
+}
+
+.coral {
+  background: var(--coral-bg);
+}
+.green {
+  background: var(--green-bg);
+}
+.blue {
+  background: var(--blue-bg);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.cardLabel {
+  color: var(--text-muted);
+  font-family: "DM Sans";
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.coralText {
+  color: var(--coral-text);
+}
+.greenText {
+  color: var(--green-text);
+}
+.blueText {
+  color: var(--blue-text);
+}
+
+.totalValue {
+  color: var(--text-strong);
+  font-family: "DM Mono";
+  font-size: 28px;
+  font-weight: 500;
+}
+
+.categoryValue {
+  font-family: "DM Mono";
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.cardSub {
+  font-family: "DM Sans";
+  font-size: 12px;
+}
+
+/* ── 상세 패널 ── */
+.detailBox {
+  display: flex;
+  gap: 16px;
+  flex: 1;
+  min-height: 0;
+  align-self: stretch;
+}

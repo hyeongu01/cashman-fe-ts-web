@@ -1,0 +1,104 @@
+.recentTransactionBox {
+  display: flex;
+  flex-direction: column;
+  flex: 5;
+  border-radius: 16px;
+  background: var(--white);
+  border: 1px solid var(--page-bg);
+  overflow: hidden;
+}
+
+/* ── 최근 거래 내부 ── */
+.panelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px 0;
+}
+
+.panelTitle {
+  color: var(--text-strong);
+  font-family: "DM Sans";
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.viewAll {
+  color: var(--primary);
+  font-family: "DM Sans";
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.txList {
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+  list-style: none;
+}
+
+.txItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 54px;
+  border-bottom: 1px solid var(--page-bg);
+}
+
+.txItem:last-child {
+  border-bottom: none;
+}
+
+.txLeft {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.txIcon {
+  font-size: 16px;
+  width: 16px;
+  text-align: center;
+}
+
+.txName {
+  color: var(--text-strong);
+  font-family: "DM Sans";
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.txMeta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+.txMetaText {
+  color: var(--text-muted);
+  font-family: "DM Sans";
+  font-size: 12px;
+}
+
+.txTag {
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: var(--page-bg);
+  color: var(--text-muted);
+  font-family: "DM Sans";
+  font-size: 11px;
+}
+
+.txAmount {
+  font-family: "DM Mono";
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.expense {
+  color: var(--expense);
+}
+.income {
+  color: var(--income);
+}

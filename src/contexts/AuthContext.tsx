@@ -8,7 +8,6 @@ import {
   useEffect,
   useState,
 } from "react";
-import { useApi } from "@/lib/api";
 import { type User } from "@/services/user";
 
 type AuthState = {

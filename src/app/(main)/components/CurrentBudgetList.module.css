@@ -1,0 +1,89 @@
+.currentBudgetBox {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  flex: 2;
+  border-radius: 16px;
+  background: var(--white);
+  border: 1px solid var(--page-bg);
+  padding: 20px;
+  overflow-y: auto;
+}
+
+/* ── 이번달 예산 내부 ── */
+.budgetTotal {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.budgetTotalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.budgetAmount {
+  color: var(--text-strong);
+  font-family: "DM Mono";
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.budgetPercent {
+  color: var(--expense);
+  font-family: "DM Sans";
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.track {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--page-bg);
+  overflow: hidden;
+}
+
+.smallTrack {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--page-bg);
+  overflow: hidden;
+}
+
+.fill {
+  height: 100%;
+  border-radius: inherit;
+}
+
+.budgetList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  list-style: none;
+}
+
+.budgetItem {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.budgetItemHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.budgetItemName {
+  color: var(--text-strong);
+  font-family: "DM Sans";
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.budgetItemAmount {
+  color: var(--text-muted);
+  font-family: "DM Mono";
+  font-size: 12px;
+}
