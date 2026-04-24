@@ -1,6 +1,6 @@
 "use client";
 
-import { type JSX } from "react";
+import React, { type JSX } from "react";
 import SideBar from "@/components/SideBar";
 import { useAuth } from "@/contexts/AuthContext";
 import { redirect } from "next/navigation";
