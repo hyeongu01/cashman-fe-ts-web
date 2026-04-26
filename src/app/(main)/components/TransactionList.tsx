@@ -15,6 +15,8 @@ type Transaction = {
     id: string;
     groupType: number;
     name: string;
+    iconKey: string;
+    iconColor: string;
   };
 };
 
@@ -62,7 +64,11 @@ function TransactionList() {
         {transactions.map((tx) => (
           <li key={tx.id} className={styles.txItem}>
             <div className={styles.txLeft}>
-              <Icon icon={"lucide-lab:tab"} width={20} height={20} />
+              <Icon
+                icon={tx.category?.iconKey ?? "lucide-lab:tab"}
+                width={20}
+                height={20}
+              />
               <div>
                 <p className={styles.txName}>{tx.name}</p>
                 <div className={styles.txMeta}>
