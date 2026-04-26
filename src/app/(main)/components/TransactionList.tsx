@@ -1,4 +1,8 @@
+"use client";
+
 import styles from "./TransactionList.module.css";
+import { useState, useEffect } from "react";
+import { useApi } from "@/lib/api";
 
 const TRANSACTIONS = [
   {
@@ -51,11 +55,51 @@ const TRANSACTIONS = [
   },
 ];
 
+type Transaction = {
+  id: string;
+  name: string;
+  amount: number;
+  type: number; // 0: 수입, 1: 지출, 2: 저축 추가, 3: 저축 취소, 4: 투자 추가, 5: 투자 취소
+  transactionDate: string; // ISO8601 포맷 ("YYYY-MM-ddThh:mm:ss")
+  category?: {
+    id: string;
+    groupType: number;
+    name: string;
+  };
+};
+
+type ResponseBody = {
+  items: Transaction[];
+  meta: {
+    limit: number;
+    page: number;
+    sortBy: string;
+    sortOrder: string;
+    totalCount: number;
+    totalPages: number;
+  };
+};
+
 function fmt(n: number) {
   return Math.abs(n).toLocaleString("ko-KR");
 }
 
 function TransactionList() {
+  const api = useApi<ResponseBody>();
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+
+  useEffect(() => {
+    const params = new URLSearchParams();
+    params.append("page", "1");
+    params.append("limit", "8");
+    params.append("sortBy", "transactionDate");
+    params.append("sortOrder", "desc");
+
+    api(`/transactions?${params}`, { method: "GET" }).then((res) => {
+      setTransactions(res.items);
+    });
+  }, []);
+
   return (
     <div className={styles.recentTransactionBox}>
       <div className={styles.panelHeader}>
@@ -63,16 +107,22 @@ function TransactionList() {
         <p className={styles.viewAll}>전체보기 →</p>
       </div>
       <ul className={styles.txList}>
-        {TRANSACTIONS.map((tx) => (
-          <li key={tx.name + tx.date} className={styles.txItem}>
+        {transactions.map((tx) => (
+          <li key={tx.id} className={styles.txItem}>
             <div className={styles.txLeft}>
-              <span className={styles.txIcon}>{tx.icon}</span>
+              <span className={styles.txIcon}>{"📚"}</span>
               <div>
                 <p className={styles.txName}>{tx.name}</p>
                 <div className={styles.txMeta}>
-                  <span className={styles.txMetaText}>{tx.category}</span>
-                  <span className={styles.txTag}>{tx.tag}</span>
-                  <span className={styles.txMetaText}>{tx.date}</span>
+                  <span className={styles.txMetaText}>
+                    {tx.category?.name ?? "-"}
+                  </span>
+                  <span className={styles.txTag}>
+                    {tx.category?.groupType === 0 ? "생활" : "저축"}
+                  </span>
+                  <span className={styles.txMetaText}>
+                    {tx.transactionDate}
+                  </span>
                 </div>
               </div>
             </div>

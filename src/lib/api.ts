@@ -17,7 +17,7 @@ export function useApi() {
   const { accessToken, refresh } = useAuth();
 
   return useCallback(
-    async <T>(path: string, options?: RequestInit) => {
+    async <T>(path: string, options?: RequestInit): Promise<T> => {
       const doFetch = (token: string | null) =>
         fetch(`${BASE_URL}${path}`, {
           ...options,
