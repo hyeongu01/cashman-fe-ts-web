@@ -35,7 +35,7 @@ function fmt(n: number) {
 }
 
 function TransactionList() {
-  const api = useApi<ResponseBody>();
+  const api = useApi();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
 
   useEffect(() => {
@@ -45,9 +45,11 @@ function TransactionList() {
     params.append("sortBy", "transactionDate");
     params.append("sortOrder", "desc");
 
-    api(`/transactions?${params}`, { method: "GET" }).then((res) => {
-      setTransactions(res.items);
-    });
+    api<ResponseBody>(`/transactions?${params}`, { method: "GET" }).then(
+      (res) => {
+        setTransactions(res.items);
+      },
+    );
   }, []);
 
   return (
