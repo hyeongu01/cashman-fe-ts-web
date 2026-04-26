@@ -3,57 +3,7 @@
 import styles from "./TransactionList.module.css";
 import { useState, useEffect } from "react";
 import { useApi } from "@/lib/api";
-
-const TRANSACTIONS = [
-  {
-    icon: "🍔",
-    name: "버거킹",
-    category: "식비",
-    tag: "생활",
-    date: "04/16",
-    amount: -12500,
-  },
-  {
-    icon: "🏠",
-    name: "월세",
-    category: "주거",
-    tag: "생활",
-    date: "04/15",
-    amount: -650000,
-  },
-  {
-    icon: "💰",
-    name: "월급",
-    category: "급여",
-    tag: "생활",
-    date: "04/15",
-    amount: 3200000,
-  },
-  {
-    icon: "🚌",
-    name: "교통카드",
-    category: "교통",
-    tag: "생활",
-    date: "04/14",
-    amount: -50000,
-  },
-  {
-    icon: "💊",
-    name: "약국",
-    category: "의료",
-    tag: "생활",
-    date: "04/13",
-    amount: -8900,
-  },
-  {
-    icon: "📈",
-    name: "ETF 수익",
-    category: "투자",
-    tag: "투자",
-    date: "04/12",
-    amount: 320000,
-  },
-];
+import { Icon } from "@iconify/react";
 
 type Transaction = {
   id: string;
@@ -110,7 +60,7 @@ function TransactionList() {
         {transactions.map((tx) => (
           <li key={tx.id} className={styles.txItem}>
             <div className={styles.txLeft}>
-              <span className={styles.txIcon}>{"📚"}</span>
+              <Icon icon={"lucide-lab:tab"} width={20} height={20} />
               <div>
                 <p className={styles.txName}>{tx.name}</p>
                 <div className={styles.txMeta}>
