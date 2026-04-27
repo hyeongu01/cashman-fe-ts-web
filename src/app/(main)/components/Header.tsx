@@ -107,7 +107,7 @@ function Header() {
             <p>날짜</p>
             <input
               type={"date"}
-              value={startDate}
+              value={startDate.toISOString()}
               onChange={(e) => setStartDate(e.target.value)}
             />
           </div>
