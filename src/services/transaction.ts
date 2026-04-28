@@ -32,17 +32,21 @@ type ResponseType = {
 export function useTransaction() {
   const api = useApi();
   const getTransactions = useCallback(
-    async (params: PaginationParams): Promise<ResponseType> => {
+    (params: PaginationParams): Promise<ResponseType> => {
       const searchParams = new URLSearchParams();
       searchParams.append("page", String(params.page ?? 1));
       searchParams.append("limit", String(params.limit ?? 8));
       searchParams.append("sortBy", params.sortBy ?? "createdAt");
       searchParams.append("sortOrder", params.sortOrder ?? "desc");
 
-      return api<ResponseType>(`/transactions?${searchParams}`, { method: "GET" });
+      return api<ResponseType>(`/transactions?${searchParams}`, {
+        method: "GET",
+      });
     },
     [api],
   );
+
+  // const addTransaction = useCallback(async () => {}, [api]);
 
   return { getTransactions };
 }
