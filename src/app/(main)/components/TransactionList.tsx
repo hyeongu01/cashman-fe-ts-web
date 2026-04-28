@@ -4,6 +4,7 @@ import styles from "./TransactionList.module.css";
 import { useState, useEffect } from "react";
 import { useApi } from "@/lib/api";
 import { Icon } from "@iconify/react";
+import { useTransaction } from "@/services/transaction";
 
 type Transaction = {
   id: string;
@@ -39,20 +40,13 @@ function fmt(n: number) {
 function TransactionList() {
   const api = useApi();
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const { getTransactions } = useTransaction();
 
   useEffect(() => {
-    const params = new URLSearchParams();
-    params.append("page", "1");
-    params.append("limit", "8");
-    params.append("sortBy", "transactionDate");
-    params.append("sortOrder", "desc");
-
-    api<ResponseBody>(`/transactions?${params}`, { method: "GET" }).then(
-      (res) => {
-        setTransactions(res.items);
-      },
-    );
-  }, []);
+    getTransactions({ sortBy: "transactionDate" }).then((data) => {
+      setTransactions(data.items);
+    });
+  }, [getTransactions]);
 
   return (
     <div className={styles.recentTransactionBox}>

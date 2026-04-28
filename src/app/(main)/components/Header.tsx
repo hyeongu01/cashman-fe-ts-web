@@ -3,14 +3,9 @@
 import styles from "./Header.module.css";
 import { useState, useEffect, useCallback } from "react";
 import Modal from "@/components/Modal";
+import { useCategory, type Category } from "@/services/category";
 
 const accountOptions = [
-  { value: "default", label: "생활 계좌" },
-  { value: "saving", label: "저축" },
-  { value: "investment", label: "투자" },
-];
-
-const categoryOptions = [
   { value: "default", label: "생활 계좌" },
   { value: "saving", label: "저축" },
   { value: "investment", label: "투자" },
@@ -20,6 +15,22 @@ function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isExpense, setIsExpense] = useState(true);
   const [startDate, setStartDate] = useState(new Date());
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [errors, setErrors] = useState<string | null>(null);
+  const { getCategories } = useCategory();
+
+  useEffect(() => {
+    getCategories()
+      .then((data) => {
+        setCategories(data);
+      })
+      .catch((e) => setErrors("카테고리를 불러오지 못했습니다."));
+  }, [getCategories]);
+
+  useEffect(() => {
+    if (!errors) return;
+    alert(errors);
+  }, [errors]);
 
   function openModal() {
     setIsModalOpen(true);
@@ -91,9 +102,10 @@ function Header() {
           <div className={styles.transactionInfoElement}>
             <p>카테고리</p>
             <select>
-              {categoryOptions.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.value}
+              <option value={"none"}>없음</option>
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
                 </option>
               ))}
             </select>
@@ -108,7 +120,7 @@ function Header() {
             <input
               type={"date"}
               value={startDate.toISOString()}
-              onChange={(e) => setStartDate(e.target.value)}
+              onChange={(e) => setStartDate(new Date(e.target.value))}
             />
           </div>
 
