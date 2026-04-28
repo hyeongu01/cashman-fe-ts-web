@@ -4,6 +4,7 @@ import styles from "./Header.module.css";
 import { useState, useEffect, useCallback } from "react";
 import Modal from "@/components/Modal";
 import { useCategory, type Category } from "@/services/category";
+import { useAccount, type Account } from "@/services/account";
 
 const accountOptions = [
   { value: "default", label: "생활 계좌" },
@@ -16,16 +17,20 @@ function Header() {
   const [isExpense, setIsExpense] = useState(true);
   const [startDate, setStartDate] = useState(new Date());
   const [categories, setCategories] = useState<Category[]>([]);
+  const [accounts, setAccounts] = useState<Account[]>([]);
   const [errors, setErrors] = useState<string | null>(null);
   const { getCategories } = useCategory();
+  const { getAccounts } = useAccount();
 
+  // 카테고리, 계좌 API 호출
   useEffect(() => {
-    getCategories()
-      .then((data) => {
-        setCategories(data);
+    Promise.all([getCategories(), getAccounts()])
+      .then(([categories, accounts]) => {
+        setCategories(categories);
+        setAccounts(accounts);
       })
-      .catch((e) => setErrors("카테고리를 불러오지 못했습니다."));
-  }, [getCategories]);
+      .catch((e) => console.error(e));
+  }, [getCategories, getAccounts]);
 
   useEffect(() => {
     if (!errors) return;
