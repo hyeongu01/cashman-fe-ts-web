@@ -4,34 +4,7 @@ import styles from "./TransactionList.module.css";
 import { useState, useEffect } from "react";
 import { useApi } from "@/lib/api";
 import { Icon } from "@iconify/react";
-import { useTransaction } from "@/services/transaction";
-
-type Transaction = {
-  id: string;
-  name: string;
-  amount: number;
-  type: number; // 0: 수입, 1: 지출, 2: 저축 추가, 3: 저축 취소, 4: 투자 추가, 5: 투자 취소
-  transactionDate: string; // ISO8601 포맷 ("YYYY-MM-ddThh:mm:ss")
-  category?: {
-    id: string;
-    groupType: number;
-    name: string;
-    iconKey: string;
-    iconColor: string;
-  };
-};
-
-type ResponseBody = {
-  items: Transaction[];
-  meta: {
-    limit: number;
-    page: number;
-    sortBy: string;
-    sortOrder: string;
-    totalCount: number;
-    totalPages: number;
-  };
-};
+import { useTransaction, type Transaction } from "@/services/transaction";
 
 function fmt(n: number) {
   return Math.abs(n).toLocaleString("ko-KR");
@@ -43,9 +16,13 @@ function TransactionList() {
   const { getTransactions } = useTransaction();
 
   useEffect(() => {
-    getTransactions({ sortBy: "transactionDate" }).then((data) => {
-      setTransactions(data.items);
-    });
+    getTransactions({ sortBy: "transactionDate" })
+      .then((data) => {
+        setTransactions(data.items);
+      })
+      .catch(() => {
+        alert("Error getting transactions");
+      });
   }, [getTransactions]);
 
   return (
