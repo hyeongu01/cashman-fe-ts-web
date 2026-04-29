@@ -84,4 +84,5 @@
 
 body {
   background: var(--surface, #f5f5f7);
+  font-family: var(--font-dm-sans), "DM Sans", sans-serif;
 }
