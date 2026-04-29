@@ -1,0 +1,37 @@
+.sectionLabel {
+  color: var(--text-muted, #787880);
+  font-family: "DM Sans";
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.nameInput {
+  display: flex;
+  padding: 12px 14px;
+  align-items: flex-start;
+  align-self: stretch;
+
+  border-radius: 12px;
+  background: var(--surface, #F5F5F7);
+}
+
+/*추가하기 버튼*/
+.addBtn {
+  display: flex;
+  padding: 13px 0;
+  justify-content: center;
+  align-items: flex-start;
+  align-self: stretch;
+
+  border-radius: 14px;
+  background: var(--primary, #475569);
+
+  color: var(--white, #FFF);
+  font-family: "DM Sans";
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}

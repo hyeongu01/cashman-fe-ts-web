@@ -55,3 +55,92 @@
   border: 1px solid var(--page-bg, #F0F0F2);
   background: var(--white, #FFF);
 }
+
+.cardHeader {
+  display: flex;
+  padding: 4px;
+  align-items: flex-start;
+  align-self: stretch;
+
+  border-radius: 10px;
+  background: var(--surface, #F5F5F7);
+}
+
+.groupCard {
+  display: flex;
+  padding: 8px 10px 8px 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  flex: 1 0 0;
+
+  border-radius: 8px;
+}
+
+.groupCardActive {
+  background: var(--white, #FFF);
+}
+
+/*본문 - 거래 정보*/
+.transactionInfoBox {
+  display: flex;
+  align-items: flex-start;
+  align-self: stretch;
+}
+
+.transactionInfoBox p {
+  display: flex;
+  padding: 10px 0;
+  justify-content: center;
+  align-items: flex-start;
+  flex: 1 0 0;
+
+  color: var(--text-muted, #787880);
+  font-family: "DM Sans";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.transactionInfoCardExpenseActive {
+  color: var(--expense, #E24B4A);
+  font-family: "DM Sans";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+
+  border-bottom: 2px solid var(--expense, #E24B4A);
+}
+
+.transactionInfoCardSaveActive {
+  color: var(--income, #1D9E75);
+  font-family: "DM Sans";
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+
+  border-bottom: 2px solid var(--income, #1D9E75);
+}
+
+/*본문 - 카테고리 추가*/
+.categoryAddBtn {
+  display: flex;
+  padding: 11px 0;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 4px;
+  align-self: stretch;
+
+  border-radius: 12px;
+  border: 1.5px solid #E6E6EA;
+
+  color: var(--primary, #475569);
+  font-family: "DM Sans";
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
