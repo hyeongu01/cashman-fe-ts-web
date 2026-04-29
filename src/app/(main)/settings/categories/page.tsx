@@ -101,7 +101,10 @@ function CategoryPage(): JSX.Element {
             onClose={() => setIsAddModalOpen(false)}
             title={"카테고리 추가"}
           >
-            <AddCategory />
+            <AddCategory
+              groupType={currentGroup}
+              transactionType={currentTransactionType}
+            />
           </Modal>
         </button>
       </div>

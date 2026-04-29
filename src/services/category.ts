@@ -15,11 +15,31 @@ type ResponseType = Category[];
 export function useCategory() {
   const api = useApi();
 
-  const getCategories = useCallback(async (): Promise<ResponseType> => {
+  const getCategories = useCallback((): Promise<ResponseType> => {
     return api<ResponseType>("/categories", {
       method: "GET",
     });
   }, [api]);
 
-  return { getCategories };
+  const addCategory = useCallback(
+    async (
+      groupType: number,
+      transactionType: number,
+      name: string,
+    ): Promise<void> => {
+      await api<object>("/categories", {
+        method: "POST",
+        body: JSON.stringify({
+          groupType: groupType,
+          transactionType: transactionType,
+          name: name,
+          iconKey: "test",
+          iconColor: "green",
+        }),
+      });
+    },
+    [api],
+  );
+
+  return { getCategories, addCategory };
 }
