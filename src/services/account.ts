@@ -2,7 +2,7 @@ import { GroupTypes, CurrencyCode } from "@/common/constraints";
 import { useApi } from "@/lib/api";
 import { useCallback } from "react";
 
-type Account = {
+export type Account = {
   id: string;
   groupType: (typeof GroupTypes)[keyof typeof GroupTypes];
   userId: string;

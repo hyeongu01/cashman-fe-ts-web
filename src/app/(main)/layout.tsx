@@ -6,9 +6,14 @@ import { useAuth } from "@/contexts/AuthContext";
 import { redirect } from "next/navigation";
 import styles from "./layout.module.css";
 
-function MainLayout({ children }: { children: React.ReactNode }): JSX.Element {
-  const { isInitialized } = useAuth();
-  if (!isInitialized) return redirect("/login");
+function MainLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}): JSX.Element | null {
+  const { isInitialized, user } = useAuth();
+  if (!isInitialized) return null;
+  if (!user) return redirect("/login");
 
   return (
     <div className={styles.container}>

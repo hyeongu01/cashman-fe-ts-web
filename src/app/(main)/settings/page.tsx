@@ -3,21 +3,38 @@
 import { type JSX } from "react";
 import styles from "./page.module.css";
 import { useAuth } from "@/contexts/AuthContext";
+import Link from "next/link";
 
-const ACCOUNT_ITEMS = ["생활 계좌 설정", "저축 계좌 설정", "투자 계좌 설정"];
-const APP_ITEMS = ["알림 설정", "카테고리 관리", "데이터 내보내기"];
-const INFO_ITEMS = ["앱 정보", "개인정보처리방침", "이용약관"];
+type MenuItem = { label: string; href: string };
 
-function MenuList({ items }: { items: string[] }) {
+const ACCOUNT_ITEMS: MenuItem[] = [
+  { label: "생활 계좌 설정", href: "/settings/accounts/living" },
+  { label: "저축 계좌 설정", href: "/settings/accounts/saving" },
+  { label: "투자 계좌 설정", href: "/settings/accounts/investment" },
+];
+
+const APP_ITEMS: MenuItem[] = [
+  { label: "알림 설정", href: "/settings/notifications" },
+  { label: "카테고리 관리", href: "/settings/categories" },
+  { label: "데이터 내보내기", href: "/settings/export" },
+];
+
+const INFO_ITEMS: MenuItem[] = [
+  { label: "앱 정보", href: "/settings/about" },
+  { label: "개인정보처리방침", href: "/settings/privacy" },
+  { label: "이용약관", href: "/settings/terms" },
+];
+
+function MenuList({ items }: { items: MenuItem[] }) {
   return (
     <>
-      {items.map((label, i) => (
-        <div key={label}>
+      {items.map(({ label, href }, i) => (
+        <div key={href}>
           {i > 0 && <div className={styles.divider} />}
-          <div className={styles.menuItem}>
+          <Link href={href} className={styles.menuItem}>
             <span className={styles.menuLabel}>{label}</span>
             <span className={styles.chevron}>›</span>
-          </div>
+          </Link>
         </div>
       ))}
     </>
@@ -33,9 +50,7 @@ function SettingPage(): JSX.Element {
 
       {/* 프로필 */}
       <div className={styles.profileCard}>
-        <div className={styles.profileIcon}>
-          {user?.name.charAt(0) ?? "?"}
-        </div>
+        <div className={styles.profileIcon}>{user?.name.charAt(0) ?? "?"}</div>
         <div>
           <p className={styles.profileName}>{user?.name ?? ""}</p>
           <p className={styles.profileEmail}>{user?.email ?? ""}</p>

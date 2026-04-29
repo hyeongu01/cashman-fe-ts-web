@@ -27,7 +27,7 @@ function Header() {
     Promise.all([getCategories(), getAccounts()])
       .then(([categories, accounts]) => {
         setCategories(categories);
-        setAccounts(accounts);
+        setAccounts(accounts.items);
       })
       .catch((e) => console.error(e));
   }, [getCategories, getAccounts]);

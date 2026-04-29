@@ -7,7 +7,7 @@ import Profile from "@/components/Profile";
 import AppLogo from "@/components/AppLogo";
 
 const NAV_ITEMS = [
-  { icon: "🏠", label: "대시보드", href: "/" },
+  { icon: "🏠", label: "대시보드", href: "/dashboard" },
   { icon: "📋", label: "거래 내역", href: "/transactions" },
   { icon: "📊", label: "예산", href: "/budget" },
   { icon: "⚙️", label: "설정", href: "/settings" },
@@ -28,7 +28,7 @@ function SideBar(): JSX.Element {
           <Link
             key={href}
             href={href}
-            className={`${styles.navItem} ${pathname === href ? styles.navItemActive : ""}`}
+            className={`${styles.navItem} ${pathname.startsWith(href) ? styles.navItemActive : ""}`}
           >
             <span className={styles.navIcon}>{icon}</span>
             <span className={styles.navLabel}>{label}</span>
