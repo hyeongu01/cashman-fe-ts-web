@@ -58,9 +58,30 @@
   width: 40px;
   height: 40px;
   border-radius: 12px;
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.colorPickerItem:hover {
+  transform: scale(1.1);
+}
+
+.colorPickerItem.selected {
+  outline: 2.5px solid var(--text-strong, #1a1a1a);
+  outline-offset: 2px;
+  transform: scale(1.1);
 }
 
 /*추가하기 버튼*/
+.addBtn:hover {
+  background: color-mix(in srgb, var(--primary, #475569) 85%, #000);
+}
+
+.addBtn:active {
+  background: color-mix(in srgb, var(--primary, #475569) 70%, #000);
+  transform: scale(0.98);
+}
+
 .addBtn {
   display: flex;
   padding: 13px 0;
@@ -70,6 +91,7 @@
 
   border-radius: 14px;
   background: var(--primary, #475569);
+  transition: background 0.15s, transform 0.1s;
 
   color: var(--white, #fff);
   font-family: "DM Sans";

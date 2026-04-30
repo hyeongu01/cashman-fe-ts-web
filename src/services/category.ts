@@ -1,3 +1,4 @@
+import { type iconName } from "@/common/iconList";
 import { GroupTypes } from "../common/constraints";
 import { useApi } from "@/lib/api";
 import { useCallback } from "react";
@@ -26,6 +27,8 @@ export function useCategory() {
       groupType: number,
       transactionType: number,
       name: string,
+      iconKey: iconName,
+      iconColor: string,
     ): Promise<void> => {
       await api<object>("/categories", {
         method: "POST",
@@ -33,8 +36,8 @@ export function useCategory() {
           groupType: groupType,
           transactionType: transactionType,
           name: name,
-          iconKey: "test",
-          iconColor: "green",
+          iconKey: iconKey,
+          iconColor: iconColor,
         }),
       });
     },

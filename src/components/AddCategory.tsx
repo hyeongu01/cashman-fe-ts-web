@@ -9,20 +9,31 @@ import { ICON_LIST, Icon, type iconName, ICON_COLORS } from "@/common/iconList";
 type AddCategoryProps = {
   groupType: (typeof GroupTypes)[keyof typeof GroupTypes];
   transactionType: 0 | 1; // 0: 지출, 1: 수입
+  onSuccess?: () => void;
 };
 
 function AddCategory({
   groupType,
   transactionType,
+  onSuccess,
 }: AddCategoryProps): JSX.Element | null {
   const { addCategory } = useCategory();
 
   const [categoryName, setCategoryName] = useState("");
   const [selectedIcon, setSelectedIcon] = useState<iconName | null>(null);
+  const [selectedColor, setSelectedColor] = useState<string | null>(null);
 
-  const handleAddBtn = useCallback(() => {
-    addCategory(groupType, transactionType, categoryName);
-  }, [addCategory, categoryName]);
+  const handleAddBtn = useCallback(async () => {
+    if (!selectedColor || !selectedIcon) return;
+    await addCategory(
+      groupType,
+      transactionType,
+      categoryName,
+      selectedIcon,
+      selectedColor,
+    );
+    onSuccess?.();
+  }, [addCategory, groupType, transactionType, categoryName, selectedIcon, selectedColor, onSuccess]);
 
   return (
     <>
@@ -58,10 +69,12 @@ function AddCategory({
         <p className={styles.sectionLabel}>색상</p>
         <div className={styles.colorPickerBox}>
           {ICON_COLORS.map((color) => (
-            <div
-              className={styles.colorPickerItem}
+            <button
+              key={color.name}
+              className={`${styles.colorPickerItem}${selectedColor === color.value ? ` ${styles.selected}` : ""}`}
               style={{ backgroundColor: color.value }}
-            ></div>
+              onClick={() => setSelectedColor(color.value)}
+            ></button>
           ))}
         </div>
       </>
