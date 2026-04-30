@@ -14,7 +14,50 @@
   align-self: stretch;
 
   border-radius: 12px;
-  background: var(--surface, #F5F5F7);
+  background: var(--surface, #f5f5f7);
+}
+
+/* 아이콘 선택자 */
+.iconContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
+  gap: 8px;
+  width: 100%;
+}
+
+.iconItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: var(--surface, #f5f5f7);
+  cursor: pointer;
+  transition: background 0.15s;
+  color: var(--text-primary, #1c1c1e);
+}
+
+.iconItem:hover {
+  background: var(--surface-hover, #e5e5ea);
+}
+
+.iconItem.selected {
+  background: var(--primary, #475569);
+  color: var(--white, #fff);
+}
+
+.colorPickerBox {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
+  width: 100%;
+  gap: 8px;
+}
+
+.colorPickerItem {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
 }
 
 /*추가하기 버튼*/
@@ -28,7 +71,7 @@
   border-radius: 14px;
   background: var(--primary, #475569);
 
-  color: var(--white, #FFF);
+  color: var(--white, #fff);
   font-family: "DM Sans";
   font-size: 15px;
   font-style: normal;
