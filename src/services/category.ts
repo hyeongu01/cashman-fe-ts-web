@@ -45,5 +45,15 @@ export function useCategory() {
     [api],
   );
 
-  return { getCategories, addCategory };
+  const deleteCategory = useCallback(
+    async (id: string) => {
+      await api<object>("/categories", {
+        method: "DELETE",
+        body: JSON.stringify({ id }),
+      });
+    },
+    [api],
+  );
+
+  return { getCategories, addCategory, deleteCategory };
 }

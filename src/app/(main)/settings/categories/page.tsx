@@ -11,7 +11,7 @@ import { type iconName, Icon } from "@/common/iconList";
 import { Pencil, Trash2 } from "lucide-react";
 
 function CategoryPage(): JSX.Element {
-  const { getCategories } = useCategory();
+  const { getCategories, deleteCategory } = useCategory();
 
   const [currentGroup, setCurrentGroup] =
     useState<(typeof GroupTypes)[keyof typeof GroupTypes]>(0);
@@ -43,18 +43,27 @@ function CategoryPage(): JSX.Element {
         <div className={styles.cardHeader}>
           <p
             className={`${styles.groupCard} ${currentGroup === 0 ? styles.groupCardActive : ""}`}
+            style={{
+              ...(currentGroup === 0 && { backgroundColor: "var(--coral-bg)" }),
+            }}
             onClick={() => setCurrentGroup(0)}
           >
             생활
           </p>
           <p
             className={`${styles.groupCard} ${currentGroup === 1 ? styles.groupCardActive : ""}`}
+            style={{
+              ...(currentGroup === 1 && { backgroundColor: "var(--green-bg)" }),
+            }}
             onClick={() => setCurrentGroup(1)}
           >
             저축
           </p>
           <p
             className={`${styles.groupCard} ${currentGroup === 2 ? styles.groupCardActive : ""}`}
+            style={{
+              ...(currentGroup === 2 && { backgroundColor: "var(--blue-bg)" }),
+            }}
             onClick={() => setCurrentGroup(2)}
           >
             투자
@@ -110,6 +119,10 @@ function CategoryPage(): JSX.Element {
                   size={28}
                   color="red"
                   className={styles.categoryItemIcon}
+                  onClick={() => {
+                    deleteCategory(category.id);
+                    getCategories().then(setCategories);
+                  }}
                 />
               </div>
             </div>
