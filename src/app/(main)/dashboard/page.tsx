@@ -1,9 +1,9 @@
 import { type JSX } from "react";
 import styles from "./page.module.css";
-import TransactionList from "./components/TransactionList";
-import CurrentBudgetList from "./components/CurrentBudgetList";
-import BudgetSummary from "./components/BudgetSummary";
-import Header from "./components/Header";
+import TransactionList from "./TransactionList";
+import CurrentBudgetList from "./CurrentBudgetList";
+import BudgetSummary from "./BudgetSummary";
+import Header from "./Header";
 
 export default function Home(): JSX.Element {
   return (
