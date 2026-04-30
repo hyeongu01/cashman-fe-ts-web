@@ -7,8 +7,8 @@ import { GroupTypes } from "@/common/constraints";
 import { useCategory, type Category } from "@/services/category";
 import AddCategory from "@/components/AddCategory";
 import Modal from "@/components/Modal";
-import { Icon } from "@/common/iconList";
-import { iconName } from "../../../../common/iconList";
+import { type iconName, Icon } from "@/common/iconList";
+import { Pencil, Trash2 } from "lucide-react";
 
 function CategoryPage(): JSX.Element {
   const { getCategories } = useCategory();
@@ -80,27 +80,40 @@ function CategoryPage(): JSX.Element {
             }
             onClick={() => setCurrentTransactionType(1)}
           >
-            수입 (-)
+            수입 (+)
           </p>
         </div>
 
         {/*본문 - 카테고리 리스트*/}
-        {categories.map((category) => (
-          <div key={category.id} className={styles.categoryItem}>
-            <div className={styles.categoryItemFront}>
-              <button>≡</button>
-              <Icon
-                name={category.iconKey as iconName}
-                size={28}
-                color={"white"}
-                className={styles.categoryItemIcon}
-                style={{ backgroundColor: category.iconColor }}
-              />
-              <p>{category.name}</p>
+        {categories
+          .filter(
+            (category) =>
+              category.groupType === currentGroup &&
+              category.transactionType === currentTransactionType,
+          )
+          .map((category) => (
+            <div key={category.id} className={styles.categoryItem}>
+              <div className={styles.categoryItemFront}>
+                <button>≡</button>
+                <Icon
+                  name={category.iconKey as iconName}
+                  size={28}
+                  color={"white"}
+                  className={styles.categoryItemIcon}
+                  style={{ backgroundColor: category.iconColor }}
+                />
+                <p>{category.name}</p>
+              </div>
+              <div className={styles.categoryItemBtnBox}>
+                <Pencil size={28} className={styles.categoryItemIcon} />
+                <Trash2
+                  size={28}
+                  color="red"
+                  className={styles.categoryItemIcon}
+                />
+              </div>
             </div>
-            <button>편집</button>
-          </div>
-        ))}
+          ))}
 
         {/*본문 - 카테고리 추가*/}
         <button

@@ -6,6 +6,7 @@ import { useCallback } from "react";
 export type Category = {
   id: string;
   groupType: (typeof GroupTypes)[keyof typeof GroupTypes];
+  transactionType: 0 | 1;
   name: string;
   iconKey: string;
   iconColor: string;
