@@ -17,6 +17,15 @@ export type Transaction = {
   };
 };
 
+export type CreateTransaction = {
+  type: number;
+  categoryId?: string;
+  accountId: string;
+  amount: number;
+  transactionDate: string;
+  name: string;
+};
+
 type ResponseType = {
   items: Transaction[];
   meta: {
@@ -46,7 +55,17 @@ export function useTransaction() {
     [api],
   );
 
+  const postTransaction = useCallback(
+    async (params: CreateTransaction): Promise<void> => {
+      await api<object>(`/transactions`, {
+        method: "POST",
+        body: JSON.stringify(params),
+      });
+    },
+    [api],
+  );
+
   // const addTransaction = useCallback(async () => {}, [api]);
 
-  return { getTransactions };
+  return { getTransactions, postTransaction };
 }

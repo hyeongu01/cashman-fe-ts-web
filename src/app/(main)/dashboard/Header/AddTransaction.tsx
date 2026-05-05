@@ -5,25 +5,25 @@ import { useAccount, type Account } from "@/services/account";
 import { GroupTypes } from "@/common/constraints";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { Wallet } from "lucide-react";
+import { CreateTransaction, useTransaction } from "@/services/transaction";
 
 type AddTransactionProps = {
   onClose?: () => void;
 };
 
-const accountOptions = [
-  { value: "default", label: "생활 계좌" },
-  { value: "saving", label: "저축" },
-  { value: "investment", label: "투자" },
-];
+const accountLabels = ["생활 계좌", "저축", "투자"];
 
 function AddTransaction({ onClose }: AddTransactionProps): JSX.Element {
   const [isExpense, setIsExpense] = useState(true);
+  const [amount, setAmount] = useState("");
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [categories, setCategories] = useState<Category[]>([]);
   const [accounts, setAccounts] = useState<Account[]>([]);
 
   const { getCategories } = useCategory();
   const { getAccounts } = useAccount();
+  const { postTransaction } = useTransaction();
 
   // 카테고리, 계좌 API 호출
   useEffect(() => {
@@ -39,8 +39,12 @@ function AddTransaction({ onClose }: AddTransactionProps): JSX.Element {
     setIsExpense(target);
   }, []);
 
+  const handleSaveBtn = () => {
+    if (onClose) onClose();
+  };
+
   return (
-    <>
+    <form>
       <div className={styles.tabCard}>
         <div
           className={`${styles.tabComponent} ${isExpense ? styles.tabComponentActive : ""}`}
@@ -64,7 +68,15 @@ function AddTransaction({ onClose }: AddTransactionProps): JSX.Element {
       {/* 금액  */}
       <div className={styles.amountBox}>
         <p>금액</p>
-        <input />
+        <div className={styles.amountInputWrapper}>
+          <Wallet className={styles.amountIcon} size={18} />
+          <input
+            inputMode="numeric"
+            placeholder="0"
+            value={amount ? Number(amount).toLocaleString("ko-KR") : ""}
+            onChange={(e) => setAmount(e.target.value.replace(/[^0-9]/g, ""))}
+          />
+        </div>
       </div>
       {/* 계좌 & 카테고리 */}
       <div className={styles.transactionInfoBox}>
@@ -74,7 +86,7 @@ function AddTransaction({ onClose }: AddTransactionProps): JSX.Element {
             {accounts.map((account: Account): JSX.Element => {
               return (
                 <option key={account.id} value={account.groupType}>
-                  {account.groupType}
+                  {accountLabels[account.groupType]}
                 </option>
               );
             })}
@@ -98,13 +110,15 @@ function AddTransaction({ onClose }: AddTransactionProps): JSX.Element {
         <div className={styles.transactionInfoElement}>
           <p>날짜</p>
           {/* 여기 react-datepicker 로 변경 */}
-          <div className={styles.datePickerBox}>
-            <DatePicker
-              showIcon
-              selected={startDate}
-              onSelect={(date: Date | null) => setStartDate(date)}
-            />
-          </div>
+          <DatePicker
+            showIcon
+            toggleCalendarOnIconClick
+            selected={startDate}
+            onChange={(date: Date | null) => setStartDate(date)}
+            isClearable
+            placeholderText="choose date"
+            closeOnScroll
+          />
         </div>
 
         <div className={styles.transactionInfoElement}>
@@ -113,8 +127,10 @@ function AddTransaction({ onClose }: AddTransactionProps): JSX.Element {
         </div>
       </div>
       {/* 저장하기 버튼 */}
-      <button className={styles.saveButton}>저장하기</button>
-    </>
+      <button className={styles.saveButton} onClick={handleSaveBtn}>
+        저장하기
+      </button>
+    </form>
   );
 }
 
