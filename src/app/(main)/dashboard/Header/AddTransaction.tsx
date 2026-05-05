@@ -3,6 +3,8 @@ import styles from "./AddTransaction.module.css";
 import { useCategory, type Category } from "@/services/category";
 import { useAccount, type Account } from "@/services/account";
 import { GroupTypes } from "@/common/constraints";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 type AddTransactionProps = {
   onClose?: () => void;
@@ -16,7 +18,7 @@ const accountOptions = [
 
 function AddTransaction({ onClose }: AddTransactionProps): JSX.Element {
   const [isExpense, setIsExpense] = useState(true);
-  const [startDate, setStartDate] = useState(new Date());
+  const [startDate, setStartDate] = useState<Date | null>(null);
   const [categories, setCategories] = useState<Category[]>([]);
   const [accounts, setAccounts] = useState<Account[]>([]);
 
@@ -95,13 +97,14 @@ function AddTransaction({ onClose }: AddTransactionProps): JSX.Element {
       <div className={styles.transactionInfoBox}>
         <div className={styles.transactionInfoElement}>
           <p>날짜</p>
-          <input
-            type={"date"}
-            value={startDate.toISOString()}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setStartDate(new Date(e.target.value))
-            }
-          />
+          {/* 여기 react-datepicker 로 변경 */}
+          <div className={styles.datePickerBox}>
+            <DatePicker
+              showIcon
+              selected={startDate}
+              onSelect={(date: Date | null) => setStartDate(date)}
+            />
+          </div>
         </div>
 
         <div className={styles.transactionInfoElement}>
