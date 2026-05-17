@@ -8,7 +8,7 @@ import { useAccount, type Account } from "@/services/account";
 import AddTransaction from "./AddTransaction";
 
 function Header() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(true);
 
   const openModal = useCallback(() => setIsModalOpen(true), [setIsModalOpen]);
   const closeModal = useCallback(() => setIsModalOpen(false), [setIsModalOpen]);
